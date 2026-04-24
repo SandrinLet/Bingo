@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reforço de web</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <h1>Roleta do bingo</h1>
     <div id="roleta">
         <p id="txt_letra">letra</p>
         <p id="txt_num">num</p>
-        <button onclick="SortearPedra()"> Sortear! </button>
+        <button id="btn-sortear" onclick="SortearPedra()"> Sortear! </button>
+        <button id = "btn-reiniciar" onclick="ReiniciarJogo()">Reiniciar jogo</button>
+    
+
  
     </div>
 <p id="numeroAtual">Nenhum sorteado</p>

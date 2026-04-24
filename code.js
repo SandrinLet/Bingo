@@ -1,13 +1,21 @@
-// const txtNum = document.getElementById("txt_num")
-// ATENÇÃO: Esta variável TEM que ficar fora da função
+
+
 let historicoSorteio = []; 
+
+const SomSorteio = new Audio ('sons/SomBingo.mp3');
 
 function SortearPedra() {
     // 1. Verificamos se o jogo acabou
     if (historicoSorteio.length >= 75) {
         alert("Fim do jogo! Todos os números saíram.");
-        return;
+        let botao = document.getElementById ('btn-sortear');
+        botao.disable = true;
+        botao.innerText ="Fim de jogo!";
+        botao.style.opacity = 0.5;
+             return;
     }
+
+         
 
     // 2. Sorteamos o primeiro número para poder testar no while
     let numeroSorteado = Math.floor(Math.random() * 75) + 1;
@@ -17,14 +25,30 @@ function SortearPedra() {
         // ...sorteia um novo e tenta de novo
         numeroSorteado = Math.floor(Math.random() * 75) + 1;
     }
-
+        SomSorteio.currentTime = 0
+        SomSorteio.play();
+  
     // 4. Agora que é um número inédito, guardamos no histórico
     historicoSorteio.push(numeroSorteado);
 
     // 5. Conexão com o HTML (Letra e Número)
-    const letras = ['B', 'I', 'N', 'G', 'O'];
-    const indiceAleatorio = Math.floor(Math.random() * letras.length);
-    const letraSorteada = letras[indiceAleatorio];
+    let letraSorteada = "";
+    if (numeroSorteado >=1 && numeroSorteado <=15) {
+        letraSorteada = "B";
+ }     
+    else if (numeroSorteado >=16 && numeroSorteado <=30) {
+        letraSorteada = "I"; }
+    else if (numeroSorteado >=31 && numeroSorteado <=45) {
+        letraSorteada = "N";}
+    else if (numeroSorteado >=46 && numeroSorteado <=60) {
+        letraSorteada = "G"; }
+    else {
+         letraSorteada ="O"
+    }
+
+
+
+    
 
     document.getElementById('txt_num').innerText = numeroSorteado;
     document.getElementById('txt_letra').innerText = letraSorteada;
@@ -35,6 +59,23 @@ function SortearPedra() {
     listaHTML.appendChild(novoItem); // Coloca o item dentro da lista <ul>
     // 6. Histórico no Console para conferência
     console.log(`Número: ${numeroSorteado} | Histórico: ${historicoSorteio}`);
+
+  
 }
+  function ReiniciarJogo() {
+    // Limpeza da lógica
+    historicoSorteio = [];
+
+      let botao = document.getElementById ('btn-sortear');
+      botao.disable = false;
+      botao.innerText = "Sortear!";
+      botao.style.opacity = 1;
+    document.getElementById('listaHistorico').innerHTML = "";
+    document.getElementById('txt_letra').innerText = "Letra";
+    document.getElementById('txt_num').innerText = "Num";
+    document.getElementById('numeroAtual').innerText = "Jogo reiniciado!";
+    
+    console.log("Sistema resetado com sucesso.");
+  }
 
 
